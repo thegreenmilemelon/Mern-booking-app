@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 
 import { Request, Response } from "express";
 import userRoutes from "./routes/users";
+import authRoutes from "./routes/auth";
 
 mongoose.connect(process.env.MONGODB_URI as string).then(() => {
   console.log("Connected to MongoDB");
@@ -19,6 +20,7 @@ app.get("/api/test", async (req: Request, res: Response) => {
 });
 
 app.use("/api/users", userRoutes);
+app.use("/api/auth", authRoutes);
 
 app.listen(7000, () => {
   console.log("server is running on port 7000");
