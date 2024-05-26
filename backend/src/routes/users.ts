@@ -9,7 +9,7 @@ const router = express.Router();
 router.post(
   "/register",
   [
-    check("firstNAme", "First Name is required").isString(),
+    check("firstName", "First Name is required").isString(),
     check("lastName", "Last Name is required").isString(),
     check("email", "Please include a valid email").isEmail(),
     check(
@@ -46,7 +46,9 @@ router.post(
         secure: process.env.NODE_ENV === "production",
         maxAge: 86400000,
       });
-      return res.sendStatus(200);
+      return res.status(200).send({
+        message: "User created successfully",
+      });
     } catch (error) {
       console.log("User post error: ", error);
       res.status(500).json({ success: false, message: "something went wrong" });
