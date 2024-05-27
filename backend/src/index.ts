@@ -7,13 +7,21 @@ import { Request, Response } from "express";
 import userRoutes from "./routes/users";
 import authRoutes from "./routes/auth";
 
+import cookieParser from "cookie-parser";
+
 mongoose.connect(process.env.MONGODB_URI as string).then(() => {
   console.log("Connected to MongoDB");
 });
 const app = express();
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); //helps us parse url
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
+  })
+);
 
 app.get("/api/test", async (req: Request, res: Response) => {
   res.json({ message: "hello from the express endpoint" });
