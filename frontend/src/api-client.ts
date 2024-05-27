@@ -32,37 +32,47 @@ export const register = async (formData: RegisterForm) => {
 };
 
 export const signIn = async (formData: SignInFormData) => {
-  const response = await axios.post(
-    `${APP_BASE_URL}/api/auth/login`,
-    formData,
-    {
-      withCredentials: true,
-      headers: {
-        "Content-Type": "application/json",
-      },
+  try {
+    const response = await axios.post(
+      `${APP_BASE_URL}/api/auth/login`,
+      formData,
+      {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const serverError = error as AxiosError;
+      if (serverError && serverError.response) {
+        throw new Error((serverError.response.data as ErrorResponse).message);
+      }
     }
-  );
-  console.log("response from signIn: ", response);
-  if (response.status !== 200) {
-    throw new Error("Failed to sign in");
   }
-  return response.data;
 };
 
 export const signOut = async () => {
-  const response = await axios.post(
-    `${APP_BASE_URL}/api/auth/logout`,
-    {},
-    {
-      withCredentials: true,
-      headers: {
-        "Content-Type": "application/json",
-      },
+  try {
+    await axios.post(
+      `${APP_BASE_URL}/api/auth/logout`,
+      {},
+      {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const serverError = error as AxiosError;
+      if (serverError && serverError.response) {
+        throw new Error((serverError.response.data as ErrorResponse).message);
+      }
     }
-  );
-  console.log("response from signOut: ", response);
-  if (response.status !== 200) {
-    throw new Error("Failed to sign out");
   }
 };
 
