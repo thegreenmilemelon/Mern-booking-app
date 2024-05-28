@@ -1,3 +1,7 @@
 steps-01.md
 automated-tests-02.md
 deployment-*
+dist 
+node_modules
+.env.e2e
+.vscode

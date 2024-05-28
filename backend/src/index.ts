@@ -8,6 +8,7 @@ import userRoutes from "./routes/users";
 import authRoutes from "./routes/auth";
 
 import cookieParser from "cookie-parser";
+import path from "path";
 
 mongoose.connect(process.env.MONGODB_URI as string).then(() => {
   console.log("Connected to MongoDB");
@@ -22,6 +23,8 @@ app.use(
     credentials: true,
   })
 );
+
+app.use(express.static(path.join(__dirname, "../../frontend/dist")));
 
 app.get("/api/test", async (req: Request, res: Response) => {
   res.json({ message: "hello from the express endpoint" });

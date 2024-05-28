@@ -3,7 +3,7 @@ import { RegisterForm } from "./pages/Register";
 
 import { SignInFormData } from "./pages/SignIn";
 
-const APP_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const APP_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
 interface ErrorResponse {
   message: string;
