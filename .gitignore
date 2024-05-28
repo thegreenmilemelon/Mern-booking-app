@@ -6,4 +6,5 @@ node_modules
 .env.e2e
 .vscode
 .hintrc
+steps*.md
 
