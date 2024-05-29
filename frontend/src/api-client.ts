@@ -4,6 +4,7 @@ import { RegisterForm } from "./pages/Register";
 import { SignInFormData } from "./pages/SignIn";
 
 const APP_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
+//uses meta url if we are in development mode, if not the backend url is used if we are in production mode
 
 interface ErrorResponse {
   message: string;
@@ -87,4 +88,24 @@ export const validateToken = async () => {
     throw new Error("Failed to validate token");
   }
   return response.data;
+};
+
+export const addMyHotel = async (hotelFormData: FormData) => {
+  try {
+    const response = await axios.post(
+      `${APP_BASE_URL}/api/my-hotels`,
+      hotelFormData,
+      {
+        withCredentials: true,
+      }
+    );
+    return response.data();
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const serverError = error as AxiosError;
+      if (serverError && serverError.response) {
+        throw new Error((serverError.response.data as ErrorResponse).message);
+      }
+    }
+  }
 };
