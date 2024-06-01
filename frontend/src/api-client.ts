@@ -2,6 +2,7 @@ import axios, { AxiosError } from "axios";
 import { RegisterForm } from "./pages/Register";
 
 import { SignInFormData } from "./pages/SignIn";
+import { HotelType } from "../../backend/src/shared/types";
 
 const APP_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 //uses meta url if we are in development mode, if not the backend url is used if we are in production mode
@@ -107,5 +108,22 @@ export const addMyHotel = async (hotelFormData: FormData) => {
         throw new Error((serverError.response.data as ErrorResponse).message);
       }
     }
+  }
+};
+
+export const fetchMyHotels = async (): Promise<HotelType[]> => {
+  try {
+    const response = await axios.get(`${APP_BASE_URL}/api/my-hotels`, {
+      withCredentials: true,
+    });
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const serverError = error as AxiosError;
+      if (serverError && serverError.response) {
+        throw new Error("Error fetching hotels");
+      }
+    }
+    throw error;
   }
 };
