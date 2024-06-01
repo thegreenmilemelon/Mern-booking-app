@@ -7,32 +7,6 @@ import { HotelType } from "../../backend/src/shared/types";
 const APP_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 //uses meta url if we are in development mode, if not the backend url is used if we are in production mode
 
-// interface ErrorResponse {
-//   message: string;
-// }
-
-// export const register = async (formData: RegisterForm) => {
-//   try {
-//     await axios.post(`${APP_BASE_URL}/api/users/register`, formData, {
-//       withCredentials: true,
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//     });
-// console.log("response: ", response);
-// const resposeBody = response.data;
-// console.log("resposeBody: ", resposeBody);
-// return resposeBody;
-//   } catch (error) {
-//     if (axios.isAxiosError(error)) {
-//       const serverError = error as AxiosError;
-//       if (serverError && serverError.response) {
-//         throw new Error((serverError.response.data as ErrorResponse).message);
-//       }
-//     }
-//   }
-// };
-
 export const register = async (formData: RegisterForm) => {
   const response = await fetch(`${APP_BASE_URL}/api/users/register`, {
     method: "POST",
