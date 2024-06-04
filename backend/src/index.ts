@@ -6,6 +6,7 @@ import mongoose from "mongoose";
 import { Request, Response } from "express";
 import userRoutes from "./routes/users";
 import authRoutes from "./routes/auth";
+import hotelRoutes from "./routes/hotels";
 
 import cookieParser from "cookie-parser";
 import path from "path";
@@ -42,6 +43,7 @@ app.get("/api/test", async (req: Request, res: Response) => {
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/my-hotels", myHotelRoutes);
+app.use("/api/hotels", hotelRoutes);
 
 app.get("*", (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
