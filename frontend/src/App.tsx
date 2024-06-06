@@ -13,6 +13,7 @@ import MyHotels from "./pages/MyHotels";
 import EditHotel from "./pages/EditHotel";
 import Search from "./pages/Search";
 import Detail from "./pages/Detail";
+import Booking from "./pages/Booking";
 
 function App() {
   const { isLoggedIn } = useAppcontext();
@@ -65,6 +66,14 @@ function App() {
           {isLoggedIn && (
             <>
               <Route
+                path="/hotel/:hotelId/booking"
+                element={
+                  <Layout>
+                    <Booking />
+                  </Layout>
+                }
+              />
+              <Route
                 path="/add-hotel"
                 element={
                   <Layout>
@@ -100,4 +109,3 @@ function App() {
 //based on the path, we are passing different components inside the layout
 
 export default App;
-
